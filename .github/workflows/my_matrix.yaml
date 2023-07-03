@@ -1,7 +1,7 @@
 name: TESTING 123
 
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       force_ingestion:
         type: boolean
