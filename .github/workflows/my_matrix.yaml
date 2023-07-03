@@ -23,13 +23,10 @@ jobs:
     outputs:
       zip4_files: steps.matrix-zip4.outputs.zip4_files
     steps:
-      errors
-
       - name: Enrich ZIP4 and write to file
         run: |
           RESULT='["DEMO.txt"]'
           echo 'zip4_files=${RESULT}' >> $GITHUB_OUTPUT
-
 
   enrich-zip4:
     name: Enrich Zip4
