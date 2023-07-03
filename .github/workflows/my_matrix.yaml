@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       params:
-        type: string
+        type: boolean
         required: true
         description: json
         default: false
@@ -16,14 +16,31 @@ jobs:
   matrix-zip4:
     name: Unzip and Matrix Zip4 files
     runs-on: [self-hosted, Linux, x64, lob-runner]
+    env:
+      ForceIngestion: ${{ inputs.force_ingestion }}
+      EffectiveDate: ${{ inputs.fulfilled_date }}
+      ImageOS: ubuntu20
+    outputs:
+      zip4_files: steps.matrix-zip4.outputs.zip4_files
+    steps:
+      errors
+
+      - name: Enrich ZIP4 and write to file
+        run: |
+          RESULT='["DEMO.txt"]'
+          echo 'zip4_files=${RESULT}' >> $GITHUB_OUTPUT
+
+
+  enrich-zip4:
+    name: Enrich Zip4
+    runs-on: [self-hosted, Linux, x64, lob-runner]
+    needs: [matrix-zip4]
     strategy:
       matrix:
-        service: ${{ fromJSON(inputs.params) }}
-
-    outputs:
-      should_run: steps.matrix-zip4.outputs.should_run
+        zip4-file: ${{ fromJSON(needs.matrix-zip4.outputs.zip4_files) }}
+    env:
+      ImageOS: ubuntu20
     steps:
-      - name: Shortcut if already run
-        id: should-run
+      - name: PRINT
         run: |
-          echo "${{ matrix.zip4-file }}" >> $GITHUB_OUTPUT
+          echo '>> ${matrix.zip4-file}'
