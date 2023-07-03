@@ -1,4 +1,4 @@
-name: TESTING 123
+name: TESTING 1234
 
 on:
   workflow_dispatch:
@@ -8,7 +8,6 @@ on:
         required: true
         description: Force Ingestion
         default: false
-
 jobs:
 
 ################
@@ -16,9 +15,10 @@ jobs:
 ################
   matrix-zip4:
     name: Unzip and Matrix Zip4 files
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, x64, lob-runner]
+    zip4_files: steps.matrix-zip4.outputs.should_run
     steps:
       - name: Shortcut if already run
         id: should-run
         run: |
-          echo 'Hello World' >> $GITHUB_OUTPUT
+          echo "should_run=true" >> $GITHUB_OUTPUT
