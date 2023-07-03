@@ -16,7 +16,7 @@ jobs:
 ################
   matrix-zip4:
     name: Unzip and Matrix Zip4 files
-    runs-on: [self-hosted, Linux, x64, lob-runner]
+    runs-on: ubuntu-latest
     steps:
       - name: Shortcut if already run
         id: should-run
