@@ -1,0 +1,19 @@
+name: TESTING
+
+on:
+  workflow_call:
+    inputs:
+
+jobs:
+
+################
+# ENRICH
+################
+  matrix-zip4:
+    name: Unzip and Matrix Zip4 files
+    runs-on: [self-hosted, Linux, x64, lob-runner]
+    steps:
+      - name: Shortcut if already run
+        id: should-run
+        run: |
+          echo "Hello World" >> $GITHUB_OUTPUT
