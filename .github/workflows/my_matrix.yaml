@@ -21,4 +21,4 @@ jobs:
       - name: Shortcut if already run
         id: should-run
         run: |
-          echo "Hello World" >> $GITHUB_OUTPUT
+          echo 'Hello World' >> $GITHUB_OUTPUT
