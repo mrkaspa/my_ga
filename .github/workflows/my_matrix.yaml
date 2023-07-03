@@ -3,10 +3,10 @@ name: TESTING 1234
 on:
   workflow_dispatch:
     inputs:
-      force_ingestion:
-        type: boolean
+      params:
+        type: string
         required: true
-        description: Force Ingestion
+        description: json
         default: false
 jobs:
 
@@ -16,10 +16,14 @@ jobs:
   matrix-zip4:
     name: Unzip and Matrix Zip4 files
     runs-on: [self-hosted, Linux, x64, lob-runner]
+    strategy:
+      matrix:
+        service: ${{ fromJSON(inputs.params) }}
+
     outputs:
       should_run: steps.matrix-zip4.outputs.should_run
     steps:
       - name: Shortcut if already run
         id: should-run
         run: |
-          echo "should_run=true" >> $GITHUB_OUTPUT
+          echo "${{ matrix.zip4-file }}" >> $GITHUB_OUTPUT
