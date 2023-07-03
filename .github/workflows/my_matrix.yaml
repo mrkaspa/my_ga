@@ -3,6 +3,11 @@ name: TESTING
 on:
   workflow_call:
     inputs:
+      force_ingestion:
+        type: boolean
+        required: true
+        description: Force Ingestion
+        default: false
 
 jobs:
 
